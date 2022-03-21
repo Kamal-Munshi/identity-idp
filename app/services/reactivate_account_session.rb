@@ -38,6 +38,7 @@ class ReactivateAccountSession
   # Parses string into PII struct
   # @return [Pii::Attributes, nil]
   def decrypted_pii
+    # what is this
     json_str = reactivate_account_session[:pii]
     Pii::Attributes.new_from_json(json_str) if json_str
   end
