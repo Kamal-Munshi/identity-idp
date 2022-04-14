@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_06_155240) do
+ActiveRecord::Schema.define(version: 2022_04_11_224513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -180,6 +180,10 @@ ActiveRecord::Schema.define(version: 2022_04_06_155240) do
     t.integer "agreement_view_count", default: 0
     t.string "state"
     t.boolean "aamva"
+    t.datetime "verify_submit_at"
+    t.datetime "verify_phone_submit_at"
+    t.integer "verify_phone_submit_count", default: 0
+    t.datetime "document_capture_submit_at"
     t.index ["user_id"], name: "index_doc_auth_logs_on_user_id", unique: true
     t.index ["verified_view_at"], name: "index_doc_auth_logs_on_verified_view_at"
   end
