@@ -1,0 +1,9 @@
+deploy_branch_to_environment_map:
+  mitchellhenke/partially-deploy-via-gitlab:
+    - mhenke
+  main:
+    - mhenke
+    - int
+    - dev
+  stages/mhenke:
+    - mhenke
