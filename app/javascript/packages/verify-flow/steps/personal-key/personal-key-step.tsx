@@ -40,7 +40,11 @@ function PersonalKeyStep({ value }: PersonalKeyStepProps) {
           </p>
         </div>
       </div>
-      <Button isOutline className="margin-right-2 margin-bottom-2 tablet:margin-bottom-0">
+      <Button
+        icon="file_download"
+        isOutline
+        className="margin-right-2 margin-bottom-2 tablet:margin-bottom-0"
+      >
         {t('forms.backup_code.download')}
       </Button>
       <PrintButton isOutline className="margin-right-2 margin-bottom-2 tablet:margin-bottom-0" />
