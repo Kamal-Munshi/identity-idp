@@ -1,4 +1,6 @@
 import type { MouseEvent, ReactNode } from 'react';
+import Icon from './icon';
+import type { DesignSystemIcon } from './icon';
 
 type ButtonType = 'button' | 'reset' | 'submit';
 
@@ -49,6 +51,11 @@ export interface ButtonProps {
   isUnstyled?: boolean;
 
   /**
+   * Icon to show next to button text.
+   */
+  icon?: DesignSystemIcon;
+
+  /**
    * Optional additional class names.
    */
   className?: string;
@@ -64,6 +71,7 @@ function Button({
   isOutline,
   isDisabled,
   isUnstyled,
+  icon,
   className,
 }: ButtonProps) {
   const classes = [
@@ -82,6 +90,7 @@ function Button({
     // Disable reason: We can assume `type` is provided as valid, or the default `button`.
     // eslint-disable-next-line react/button-has-type
     <button type={type} onClick={onClick} disabled={isDisabled} className={classes}>
+      {icon && <Icon icon={icon} />}
       {children}
     </button>
   );
