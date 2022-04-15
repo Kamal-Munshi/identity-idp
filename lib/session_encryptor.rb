@@ -27,9 +27,9 @@ class SessionEncryptor
     kms_encrypt_pii!(value)
     kms_encrypt_doc_auth_pii!(value)
     kms_encrypt_idv_pii!(value)
-    contains_sensitive_keys?(value)
+    raise 'oops' if contains_sensitive_keys?(value)
     plain = JSON.generate(value, quirks_mode: true)
-    raise 'lol' if contains_pii?(plain)
+    raise 'oops' if contains_pii?(plain)
     "v2" + encryptor.encrypt(plain)
   end
 
