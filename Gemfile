@@ -88,10 +88,11 @@ group :development, :test do
   gem 'aws-sdk-cloudwatchlogs', require: false
   gem 'brakeman', require: false
   gem 'bullet', '>= 6.0.2'
+  gem 'data_uri', require: false
   gem 'erb_lint', '~> 0.1.0', require: false
   gem 'i18n-tasks', '>= 0.9.31'
   gem 'knapsack'
-  gem 'nokogiri', '~> 1.13.2'
+  gem 'nokogiri', '~> 1.13.4'
   gem 'parallel_tests'
   gem 'pg_query', require: false
   gem 'pry-byebug'
