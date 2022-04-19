@@ -15,6 +15,7 @@ module Encryption
       end
 
       def decrypt(ciphertext)
+        binding.pry
         raise EncryptionError, 'ciphertext invalid' unless valid_base64_encoding?(ciphertext)
         decoded_ciphertext = decode(ciphertext)
         try_decrypt(decoded_ciphertext)

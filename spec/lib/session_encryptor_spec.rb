@@ -15,7 +15,13 @@ RSpec.describe SessionEncryptor do
     end
 
     context 'with a modern and exciting ciphertext' do
-      it 'decrypts the encrypted PII components of the session'
+      it 'decrypts the encrypted PII components of the session' do
+        session = { 'foo' => 'bar' }
+
+        ciphertext = LegacySessionEncryptor.new.dump(session)
+
+        result = SessionEncryptor.new.load(ciphertext)
+      end
     end
   end
 
@@ -25,7 +31,15 @@ RSpec.describe SessionEncryptor do
         allow(IdentityConfig.store).to receive(:session_encryptor_v2_enabled).and_return(true)
       end
 
-      it 'encrypts the PII elements of the session'
+      it 'encrypts the PII elements of the session' do
+        session = { 'warden.user.user.session' => {'idv' => { 'ssn' => 'bar' }}}
+
+        ciphertext = SessionEncryptor.new.dump(session)
+
+        binding.pry
+        result = SessionEncryptor.new.load(ciphertext)
+        binding.pry
+      end
     end
 
     context 'whithout version 2 encryption enabled' do

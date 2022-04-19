@@ -8,7 +8,8 @@ class SessionEncryptor
   def load(value)
     return LegacySessionEncryptor.new.load(value) if should_use_legacy_encryptor_for_read?(value)
 
-    decrypted = encryptor.decrypt(value)
+    _v2, ciphertext = value.split(':')
+    decrypted = encryptor.decrypt(ciphertext)
 
     session = JSON.parse(decrypted, quirks_mode: true).with_indifferent_access
     kms_decrypt_doc_auth_pii!(session)
@@ -23,10 +24,10 @@ class SessionEncryptor
     kms_encrypt_pii!(value)
     kms_encrypt_doc_auth_pii!(value)
     kms_encrypt_idv_pii!(value)
-    raise 'oops' if contains_sensitive_keys?(value)
+    contains_sensitive_keys?(value)
     plain = JSON.generate(value, quirks_mode: true)
     raise 'oops' if contains_pii?(plain)
-    'v2' + encryptor.encrypt(plain)
+    'v2:' + encryptor.encrypt(plain)
   end
 
   def kms_encrypt(text)
@@ -66,6 +67,7 @@ class SessionEncryptor
   end
 
   def kms_encrypt_idv_pii!(session)
+    binding.pry
     return unless session.dig('warden.user.user.session', 'idv')
     idv_pii = session.dig('warden.user.user.session').delete('idv')
     session['warden.user.user.session']['encrypted_idv'] =
@@ -96,6 +98,7 @@ class SessionEncryptor
   end
 
   def should_use_legacy_encryptor_for_read?(value)
+    binding.pry
     ## Legacy ciphertexts will not include a colon and thus will have no header
     header = value.split(':').first
     header != 'v2'
